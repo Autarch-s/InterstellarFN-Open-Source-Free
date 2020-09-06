@@ -10,11 +10,6 @@ void fatalerrormessage(std::string msg)
 
 void init()
 {
-    AllocConsole();
-    static_cast<VOID>(freopen("CONIN$", "r", stdin));
-    static_cast<VOID>(freopen("CONOUT$", "w", stdout));
-    static_cast<VOID>(freopen("CONOUT$", "w", stderr));
-
     hooking::processeventhooking();
 
     Uworld = reinterpret_cast<PVOID>(RELATIVE_ADDR(sigscan(E("FortniteClient-Win64-Shipping.exe"), patterns::Uworld), 7));
