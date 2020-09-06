@@ -17,3 +17,12 @@
     -Corner ESP (Planned)
  
  
+
+
+## Things which are not mine
+
+-Pattern Scanner
+
+-World To Screen
+
+-Discord Hook
