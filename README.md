@@ -6,7 +6,7 @@
 
     -Memory Aimbot
   
-    -Mouse Aimbot (Planned)
+    -Mouse Aimbot
   
 -ESP
 
