@@ -775,8 +775,8 @@ ImGuiIO::ImGuiIO()
 	DisplaySize = ImVec2(-1.0f, -1.0f);
 	DeltaTime = 1.0f / 60.0f;
 	IniSavingRate = 5.0f;
-	IniFilename = "imgui.ini";
-	LogFilename = "imgui_log.txt";
+	IniFilename = ("imgui.ini");
+	LogFilename = ("imgui_log.txt");
 	MouseDoubleClickTime = 0.30f;
 	MouseDoubleClickMaxDist = 6.0f;
 	for (int i = 0; i < ImGuiKey_COUNT; i++)
@@ -1832,7 +1832,7 @@ ImGuiWindow::ImGuiWindow(ImGuiContext* context, const char* name)
 	WindowPadding = ImVec2(0.0f, 0.0f);
 	WindowRounding = 0.0f;
 	WindowBorderSize = 0.0f;
-	MoveId = GetID("#MOVE");
+	MoveId = GetID(("#MOVE"));
 	Scroll = ImVec2(0.0f, 0.0f);
 	ScrollTarget = ImVec2(FLT_MAX, FLT_MAX);
 	ScrollTargetCenterRatio = ImVec2(0.5f, 0.5f);
@@ -2538,7 +2538,7 @@ void ImGui::NewFrame()
 	// Create implicit window - we will only render it if the user has added something to it.
 	// We don't use "Debug" to avoid colliding with user trying to create a "Debug" window with custom flags.
 	SetNextWindowSize(ImVec2(400, 400), ImGuiCond_FirstUseEver);
-	Begin("Debug##Default");
+	Begin(("Debug##Default"));
 }
 
 static void* SettingsHandlerWindow_ReadOpen(ImGuiContext*, ImGuiSettingsHandler*, const char* name)
@@ -2554,9 +2554,9 @@ static void SettingsHandlerWindow_ReadLine(ImGuiContext*, ImGuiSettingsHandler*,
 	ImGuiWindowSettings* settings = (ImGuiWindowSettings*)entry;
 	float x, y;
 	int i;
-	if (sscanf(line, "Pos=%f,%f", &x, &y) == 2)         settings->Pos = ImVec2(x, y);
-	else if (sscanf(line, "Size=%f,%f", &x, &y) == 2)   settings->Size = ImMax(ImVec2(x, y), GImGui->Style.WindowMinSize);
-	else if (sscanf(line, "Collapsed=%d", &i) == 1)     settings->Collapsed = (i != 0);
+	if (sscanf(line, ("Pos=%f,%f"), &x, &y) == 2)         settings->Pos = ImVec2(x, y);
+	else if (sscanf(line, ("Size=%f,%f"), &x, &y) == 2)   settings->Size = ImMax(ImVec2(x, y), GImGui->Style.WindowMinSize);
+	else if (sscanf(line, ("Collapsed=%d"), &i) == 1)     settings->Collapsed = (i != 0);
 }
 
 static void SettingsHandlerWindow_WriteAll(ImGuiContext* imgui_ctx, ImGuiSettingsHandler* handler, ImGuiTextBuffer* buf)

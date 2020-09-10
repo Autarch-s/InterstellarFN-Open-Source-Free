@@ -28,7 +28,7 @@ ImGuiWindow& BeginScene() {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0);
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 0));
-	ImGui::Begin(("##scene"), nullptr, ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoTitleBar);
+	ImGui::Begin(E("##scene"), nullptr, ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoTitleBar);
 
 	auto& io = ImGui::GetIO();
 	ImGui::SetWindowPos(ImVec2(0, 0), ImGuiCond_Always);
@@ -37,16 +37,15 @@ ImGuiWindow& BeginScene() {
 	return *ImGui::GetCurrentWindow();
 }
 
-extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-LRESULT CALLBACK WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-	if (msg == WM_KEYUP && wParam == VK_INSERT)
-	{
-		showmenu = !showmenu;
-		ImGui::GetIO().MouseDrawCursor = showmenu;
-	}
+LRESULT CALLBACK WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+
     if (msg == WM_KEYUP && wParam == VK_F1) 
 	{
-		settings::memoryaim = !settings::memoryaim;
+		if (settings::aimtype == 3)
+			settings::aimtype = 1;
+		else
+			settings::aimtype += 1;
 	}
     if (msg == WM_KEYUP && wParam == VK_F2) 
 	{
@@ -56,13 +55,15 @@ LRESULT CALLBACK WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 	{
 		settings::snaplines = !settings::snaplines;
 	}
-	else if (msg == WM_QUIT && showmenu)
+	if (msg == WM_KEYUP && wParam == VK_F5)
 	{
-		ExitProcess(0);
+		settings::smooth -= 1;
+	}
+	if (msg == WM_KEYUP && wParam == VK_F6)
+	{
+		settings::smooth += 1;
 	}
 
-	ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
-	
 	return CallWindowProcW(oWndProc, hWnd, msg, wParam, lParam);
 }
 
@@ -142,11 +143,25 @@ HRESULT presenthook(IDXGISwapChain* swap, UINT sync_interval, UINT flags)
 		if (iat(GetAsyncKeyState)(VK_SUBTRACT))
 			settings::fov -= 1;
 
-		std::string mem = (settings::memoryaim ? E("TRUE") : E("FALSE"));
+		std::string mem = "";
+		if (settings::aimtype == 1)
+			mem = E("Mouse Aim");
+		else if (settings::aimtype == 2)
+			mem = E("Memory Aim");
+		else if (settings::aimtype == 3)
+			mem = E("None");
+
 		std::string box = (settings::boxesp ? E("TRUE") : E("FALSE"));
 		std::string snap = (settings::snaplines ? E("TRUE") : E("FALSE"));
 
-		std::string options = E("Memory Aim (F1): ") + mem + E(" | Box ESP (F2): ") + box + E(" | Snaplines (F3): ") + snap + E(" | Aim Fov (+/-): ") + std::to_string(settings::fov) + E("   MEMORY AIM IS BROKEN (make a commit to fix it or wait untill i fix)");
+		if (settings::smooth <= 0)
+			settings::smooth = 0;
+
+		if (settings::smooth < 10)
+			settings::smooth = 10;
+
+
+		std::string options = E("Aim Type (F1): ") + mem + E(" | Box ESP (F2): ") + box + E(" | Snaplines (F3): ") + snap + E(" | Aim Fov (+/-): ") + std::to_string(settings::fov) + E(" | Smooth (F5/F6): ") + std::to_string(settings::smooth) + E("    MEMORY AIM GIVES EXPLOIT BAN AFTER ~1H USE MOUSE AIM FOR UD!");
 
 		windowshit.DrawList->AddText(ImVec2(50, 50), ImColor::HSV(hsv / 255.f, 255, 255), E("Interstellar Open Source Free (If You Bought This You Got Scammed)"));
 		windowshit.DrawList->AddText(ImVec2(50, 75), ImColor::HSV(hsv / 255.f, 255, 255), options.c_str());

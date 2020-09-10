@@ -72,12 +72,12 @@ D3DXMATRIX Matrix(Vector3 rot, Vector3 origin = Vector3(0, 0, 0))
 	float radYaw = (rot.y * float(M_PI) / 180.f);
 	float radRoll = (rot.z * float(M_PI) / 180.f);
 
-	float SP = sinf(radPitch);
-	float CP = cosf(radPitch);
-	float SY = sinf(radYaw);
-	float CY = cosf(radYaw);
-	float SR = sinf(radRoll);
-	float CR = cosf(radRoll);
+	float SP = iat(sinf)(radPitch);
+	float CP = iat(cosf)(radPitch);
+	float SY = iat(sinf)(radYaw);
+	float CY = iat(cosf)(radYaw);
+	float SR = iat(sinf)(radRoll);
+	float CR = iat(cosf)(radRoll);
 
 	D3DMATRIX matrix;
 	matrix.m[0][0] = CP * CY;
@@ -124,10 +124,10 @@ Vector3 w2s(Vector3 WorldLocation, Vector3 camrot, float X, float Y)
 	float ScreenCenterX = X / 2.0f;
 	float ScreenCenterY = Y / 2.0f;
 
-	if (vTransformed.z < 1.f || tanf(FovAngle * (float)M_PI / 360.f) == 0.f) return Vector3(0, 0, 0);
+	if (vTransformed.z < 1.f || iat(tanf)(FovAngle * (float)M_PI / 360.f) == 0.f) return Vector3(0, 0, 0);
 
-	Screenlocation.x = ScreenCenterX + vTransformed.x * (ScreenCenterX / tanf(FovAngle * (float)M_PI / 360.f)) / vTransformed.z;
-	Screenlocation.y = ScreenCenterY - vTransformed.y * (ScreenCenterX / tanf(FovAngle * (float)M_PI / 360.f)) / vTransformed.z;
+	Screenlocation.x = ScreenCenterX + vTransformed.x * (ScreenCenterX / iat(tanf)(FovAngle * (float)M_PI / 360.f)) / vTransformed.z;
+	Screenlocation.y = ScreenCenterY - vTransformed.y * (ScreenCenterX / iat(tanf)(FovAngle * (float)M_PI / 360.f)) / vTransformed.z;
 
 	return Screenlocation;
 }

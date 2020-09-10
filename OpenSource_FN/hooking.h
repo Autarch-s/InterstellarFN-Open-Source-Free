@@ -15,7 +15,7 @@ namespace hooking
 		if (processeventsig)
 			if (discord::HookFunction(processeventsig, (uintptr_t)processevent, (uintptr_t)&processeventorig))
 				return true;
-		
+		else
 		return false;
 	}
 
@@ -34,9 +34,7 @@ namespace hooking
 		*poriginal_present = presenthook;
 
 		const auto presentaddy = sigscan(E("DiscordHook64.dll"), E("48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B D9 41 8B F8"));
-		if(presentaddy)
-			if(discord::HookFunction(presentaddy, (uintptr_t)presenthook, (uintptr_t)&PresentOriginal))
-				return true;
+		discord::HookFunction(presentaddy, (uintptr_t)presenthook, (uintptr_t)&PresentOriginal);
 
 		return false;
 	}

@@ -59,23 +59,11 @@
     <ClInclude Include="Discord.h">
       <Filter>utilities\Discord</Filter>
     </ClInclude>
-    <ClInclude Include="xorstr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="hooking.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="processevent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="structs.h">
       <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
       <Filter>utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="present.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>imgui</Filter>
@@ -101,11 +89,23 @@
     <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="hooking.h">
+      <Filter>hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="xorstr.h">
+      <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="w2s.h">
-      <Filter>Header Files</Filter>
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="processevent.h">
+      <Filter>hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="present.h">
+      <Filter>hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

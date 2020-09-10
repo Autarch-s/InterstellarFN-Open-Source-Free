@@ -3,13 +3,14 @@
 
 void fatalerrormessage(std::string msg)
 {
-    std::string en = "Following Signature Could Not Be Found: " + msg;
-    MessageBoxA(0, en.c_str(), "Fatal Error Occured   |  INTERSTELLAR OPEN SOURCE FREE", MB_OK | MB_ICONERROR);
+    std::string en = E("Following Signature Could Not Be Found: ") + msg;
+    MessageBoxA(0, en.c_str(), E("Fatal Error Occured   |  INTERSTELLAR OPEN SOURCE FREE"), MB_OK | MB_ICONERROR);
     exit(0);
 }
 
 void init()
 {
+
     hooking::processeventhooking();
 
     Uworld = reinterpret_cast<PVOID>(RELATIVE_ADDR(sigscan(E("FortniteClient-Win64-Shipping.exe"), patterns::Uworld), 7));

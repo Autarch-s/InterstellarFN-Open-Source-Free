@@ -1,3 +1,4 @@
+
 // dear imgui, v1.54 WIP
 // (internals)
 
@@ -647,7 +648,7 @@ struct ImGuiContext
 
 		ModalWindowDarkeningRatio = 0.0f;
 		OverlayDrawList._Data = &DrawListSharedData;
-		OverlayDrawList._OwnerName = "##Overlay"; // Give it a name for debugging
+		OverlayDrawList._OwnerName = ("##Overlay"); // Give it a name for debugging
 		MouseCursor = ImGuiMouseCursor_Arrow;
 		memset(MouseCursorData, 0, sizeof(MouseCursorData));
 
