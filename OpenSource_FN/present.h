@@ -40,18 +40,18 @@ ImGuiWindow& BeginScene() {
 LRESULT CALLBACK WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 
-    if (msg == WM_KEYUP && wParam == VK_F1) 
+	if (msg == WM_KEYUP && wParam == VK_F1)
 	{
 		if (settings::aimtype == 3)
 			settings::aimtype = 1;
 		else
 			settings::aimtype += 1;
 	}
-    if (msg == WM_KEYUP && wParam == VK_F2) 
+	if (msg == WM_KEYUP && wParam == VK_F2)
 	{
 		settings::boxesp = !settings::boxesp;
 	}
-    if (msg == WM_KEYUP && wParam == VK_F3)
+	if (msg == WM_KEYUP && wParam == VK_F3)
 	{
 		settings::snaplines = !settings::snaplines;
 	}
@@ -75,7 +75,8 @@ HRESULT presenthook(IDXGISwapChain* swap, UINT sync_interval, UINT flags)
 
 	g_pSwapChain = swap;
 
-	if (firstTime) {
+	if (firstTime)
+	{
 
 		swap->GetDevice(__uuidof(ID3D11Device), (void**)&uDevice);
 
@@ -93,9 +94,10 @@ HRESULT presenthook(IDXGISwapChain* swap, UINT sync_interval, UINT flags)
 			uDevice->Release();
 		}
 
-		HWND test = iat(FindWindowA)(E("UnrealWindow"), E("Fortnite  "));
-		if (!test) test = iat(GetForegroundWindow)();
-		oWndProc = reinterpret_cast<WNDPROC>(iat(SetWindowLongPtrW)(test, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WndProcHook)));
+		HWND window = iat(FindWindowA)(E("UnrealWindow"), E("Fortnite  "));
+		if (!window) window = iat(GetForegroundWindow)();
+
+		oWndProc = reinterpret_cast<WNDPROC>(iat(SetWindowLongPtrW)(window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WndProcHook)));
 
 		firstTime = false;
 	}
@@ -157,10 +159,6 @@ HRESULT presenthook(IDXGISwapChain* swap, UINT sync_interval, UINT flags)
 		if (settings::smooth <= 0)
 			settings::smooth = 0;
 
-		if (settings::smooth < 10)
-			settings::smooth = 10;
-
-
 		std::string options = E("Aim Type (F1): ") + mem + E(" | Box ESP (F2): ") + box + E(" | Snaplines (F3): ") + snap + E(" | Aim Fov (+/-): ") + std::to_string(settings::fov) + E(" | Smooth (F5/F6): ") + std::to_string(settings::smooth) + E("    MEMORY AIM GIVES EXPLOIT BAN AFTER ~1H USE MOUSE AIM FOR UD!");
 
 		windowshit.DrawList->AddText(ImVec2(50, 50), ImColor::HSV(hsv / 255.f, 255, 255), E("Interstellar Open Source Free (If You Bought This You Got Scammed)"));
@@ -168,8 +166,8 @@ HRESULT presenthook(IDXGISwapChain* swap, UINT sync_interval, UINT flags)
 
 		windowshit.DrawList->AddCircle(ImVec2(iat(GetSystemMetrics)(0) / 2, iat(GetSystemMetrics)(1) / 2), settings::fov, ImGui::GetColorU32({ 0.f, 0.f, 0.f, 1.f }), 20, 1.f);
 
-		cheatinit(windowshit, iat(GetSystemMetrics)(0),  iat(GetSystemMetrics)(1));
-		
+		cheatinit(windowshit, iat(GetSystemMetrics)(0), iat(GetSystemMetrics)(1));
+
 		ImGui::End();
 		ImGui::SetWindowPos(ImVec2(0, 0), ImGuiCond_Always);
 		ImGui::SetWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y), ImGuiCond_Always);

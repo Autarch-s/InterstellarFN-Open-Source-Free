@@ -11,9 +11,17 @@ namespace hooking
 {
 	bool processeventhooking()
 	{
-		auto processeventsig = sigscan(E("FortniteClient-Win64-Shipping.exe"), patterns::ProcessEvent);
+#pragma region patterns
+
+		//had to shift because xor was causing issues...
+		CONST CHAR* s_ProcessEvent = E("40 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 48 8D 6C 24 ? 48 89 9D ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C5 48 89 85 ? ? ? ? 8B 41 0C 45 33 F6 3B 05 ? ? ? ? 4D 8B F8 48 8B F2 4C 8B E1 41 B8 ? ? ? ? 7D 2A");
+
+#pragma endregion patterns
+
+
+		auto processeventsig = sigscan(E("FortniteClient-Win64-Shipping.exe"), s_ProcessEvent);
 		if (processeventsig)
-			if (discord::HookFunction(processeventsig, (uintptr_t)processevent, (uintptr_t)&processeventorig))
+			if (discord::HookFunction(processeventsig, (uintptr_t)UEEventHook, (uintptr_t)&UEEvent))
 				return true;
 		else
 		return false;

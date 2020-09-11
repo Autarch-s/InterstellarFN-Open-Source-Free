@@ -2,14 +2,14 @@
 #include <windows.h>
 #include "structs.h"
 
-PVOID(*processeventorig)(PVOID, PVOID, PVOID, PVOID) = nullptr;
+PVOID(*UEEvent)(PVOID, PVOID, PVOID, PVOID) = nullptr;
 
-PVOID processevent(UObject* object, UObject* func, PVOID params, PVOID result) 
+PVOID UEEventHook(UObject* object, UObject* func, PVOID params, PVOID result) 
 {
 	if (!object || !func)
-		processeventorig(object, func, params, result);
+		UEEvent(object, func, params, result);
 
 	//your pasted exploits go here :D
 
-	return processeventorig(object, func, params, result);
+	return UEEvent(object, func, params, result);
 }

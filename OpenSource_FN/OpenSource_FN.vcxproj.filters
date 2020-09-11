@@ -89,20 +89,20 @@
     <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hooking.h">
-      <Filter>hooking</Filter>
-    </ClInclude>
-    <ClInclude Include="xorstr.h">
-      <Filter>utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="w2s.h">
-      <Filter>utilities</Filter>
-    </ClInclude>
     <ClInclude Include="processevent.h">
       <Filter>hooking</Filter>
     </ClInclude>
     <ClInclude Include="present.h">
       <Filter>hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="hooking.h">
+      <Filter>hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="w2s.h">
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="xorstr.h">
+      <Filter>utilities</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>Source Files</Filter>

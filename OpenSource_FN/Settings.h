@@ -10,7 +10,10 @@ namespace settings
 	//10 = max smooth
 	int smooth = 0;
 
+	//draws a box around the player
 	bool boxesp = true;
+
+	//draws a line from the players head to the bottom of the screen
 	bool snaplines = true;
 
 	//aimbot fov
