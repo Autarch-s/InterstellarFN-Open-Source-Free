@@ -3,12 +3,14 @@
 ## Status
 
 -Anti-Cheats
+
     -Easy Anti Cheat (EAC): UD
+    
     -Battle Eye (BE): UD
     
 -Fortnite Update 
 
-    -Patch 14.10 has released and has changed/hidden the getobjectname/fnamepool function, without this the cheat will not function
+    -Patch 14.10 has released and has changed/hidden the getobjectname/fnamepool function, without this the cheat will not function at all.
     
     -Status: Updating...
 
