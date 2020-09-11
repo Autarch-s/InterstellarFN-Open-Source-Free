@@ -10,9 +10,9 @@
     
 -Fortnite Update 
 
-    -Patch 14.10 has released and has changed/hidden the getobjectname/fnamepool function, without this the cheat will not function at all.
+    -Updated To Fortnite 14.10 patch
     
-    -Status: Updating...
+    -Status: Updated
 
 ## Features
 
