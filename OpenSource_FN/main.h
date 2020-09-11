@@ -223,7 +223,7 @@ bool cheatinit(ImGuiWindow& window, float X, float Y)
 			if (settings::aimtype == 1)
 			{
 				//moves the mouse to selected location
-				//+5 is because the aim becomes really strong and 
+				//+5 is because the aim becomes really strong and makes aim really shaky
 				mousemove(aimw2s.x, aimw2s.y, X, Y, settings::smooth + 5);
 			}
 			else if (settings::aimtype == 2)
