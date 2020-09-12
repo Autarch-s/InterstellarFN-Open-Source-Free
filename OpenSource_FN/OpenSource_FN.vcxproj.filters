@@ -107,5 +107,13 @@
     <ClInclude Include="main.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="_spoofer_stub.h">
+      <Filter>utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="shellcode.asm">
+      <Filter>utilities</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

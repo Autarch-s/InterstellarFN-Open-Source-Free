@@ -13,7 +13,7 @@ Cam o_GetCameraInfo = NULL;
 
 uintptr_t hkGetCameraInfo(uintptr_t a1, FMinimalViewInfo* a2)
 {
-	uintptr_t returnval = o_GetCameraInfo(a1, a2);
+	uintptr_t returnval = spoof_call(jmp, o_GetCameraInfo, a1, a2);
 
 	CamLoc = a2->Loc;
 	FOV = a2->Fov;
@@ -124,10 +124,10 @@ Vector3 w2s(Vector3 WorldLocation, Vector3 camrot, float X, float Y)
 	float ScreenCenterX = X / 2.0f;
 	float ScreenCenterY = Y / 2.0f;
 
-	if (vTransformed.z < 1.f || tanf(FovAngle * (float)M_PI / 360.f) == 0.f) return Vector3(0, 0, 0);
+	if (vTransformed.z < 1.f || spoof_call(jmp, tanf, FovAngle * (float)M_PI / 360.f) == 0.f) return Vector3(0, 0, 0);
 
-	Screenlocation.x = ScreenCenterX + vTransformed.x * (ScreenCenterX / tanf(FovAngle * (float)M_PI / 360.f)) / vTransformed.z;
-	Screenlocation.y = ScreenCenterY - vTransformed.y * (ScreenCenterX / tanf(FovAngle * (float)M_PI / 360.f)) / vTransformed.z;
+	Screenlocation.x = ScreenCenterX + vTransformed.x * (ScreenCenterX / spoof_call(jmp, tanf, FovAngle * (float)M_PI / 360.f)) / vTransformed.z;
+	Screenlocation.y = ScreenCenterY - vTransformed.y * (ScreenCenterX / spoof_call(jmp, tanf, FovAngle * (float)M_PI / 360.f)) / vTransformed.z;
 
 	return Screenlocation;
 }

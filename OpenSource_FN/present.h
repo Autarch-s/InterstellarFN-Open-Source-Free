@@ -39,7 +39,6 @@ ImGuiWindow& BeginScene() {
 
 LRESULT CALLBACK WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-
 	if (msg == WM_KEYUP && wParam == VK_F1)
 	{
 		if (settings::aimtype == 3)
@@ -64,7 +63,7 @@ LRESULT CALLBACK WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		settings::smooth += 1;
 	}
 
-	return CallWindowProcW(oWndProc, hWnd, msg, wParam, lParam);
+	return spoof_call(jmp, CallWindowProcW, oWndProc, hWnd, msg, wParam, lParam);
 }
 
 float hsv = 0;
@@ -139,10 +138,10 @@ HRESULT presenthook(IDXGISwapChain* swap, UINT sync_interval, UINT flags)
 		else
 			hsv = 0;
 
-		if (iat(GetAsyncKeyState)(VK_ADD))
+		if (discord::GetAsyncKeyState(VK_ADD))
 			settings::fov += 1;
 
-		if (iat(GetAsyncKeyState)(VK_SUBTRACT))
+		if (discord::GetAsyncKeyState(VK_SUBTRACT))
 			settings::fov -= 1;
 
 		std::string mem = "";
@@ -164,9 +163,9 @@ HRESULT presenthook(IDXGISwapChain* swap, UINT sync_interval, UINT flags)
 		windowshit.DrawList->AddText(ImVec2(50, 50), ImColor::HSV(hsv / 255.f, 255, 255), E("Interstellar Open Source Free (If You Bought This You Got Scammed)"));
 		windowshit.DrawList->AddText(ImVec2(50, 75), ImColor::HSV(hsv / 255.f, 255, 255), options.c_str());
 
-		windowshit.DrawList->AddCircle(ImVec2(iat(GetSystemMetrics)(0) / 2, iat(GetSystemMetrics)(1) / 2), settings::fov, ImGui::GetColorU32({ 0.f, 0.f, 0.f, 1.f }), 20, 1.f);
+		windowshit.DrawList->AddCircle(ImVec2(spoof_call(jmp, GetSystemMetrics, 0) / 2, spoof_call(jmp, GetSystemMetrics, 1) / 2), settings::fov, ImGui::GetColorU32({ 0.f, 0.f, 0.f, 1.f }), 20, 1.f);
 
-		cheatinit(windowshit, iat(GetSystemMetrics)(0), iat(GetSystemMetrics)(1));
+		cheatinit(windowshit, spoof_call(jmp, GetSystemMetrics, 0), spoof_call(jmp, GetSystemMetrics, 1));
 
 		ImGui::End();
 		ImGui::SetWindowPos(ImVec2(0, 0), ImGuiCond_Always);

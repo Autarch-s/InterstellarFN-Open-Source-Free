@@ -3,11 +3,12 @@
 #include <string>
 #include "xorstr.h"
 #include "structs.h"
+#include "_spoofer_stub.h"
 
 void Free(__int64 trashtoburn)
 {
 	auto fr = reinterpret_cast<__int64(__fastcall*)(__int64 a1)>(freeA);
-	fr(trashtoburn);
+	spoof_call(jmp, fr, trashtoburn);
 }
 
 namespace gobj
@@ -17,7 +18,7 @@ namespace gobj
 			return "";
 		auto fGetObjName = reinterpret_cast<FString * (__fastcall*)(FString * name, uintptr_t entity)>(GNameA);
 		FString result;
-		fGetObjName(&result, (uintptr_t)object);
+		spoof_call(jmp, fGetObjName, &result, (uintptr_t)object);
 		if (result.c_str() == NULL)
 			return "";
 		auto result_str = result.ToString();
@@ -32,13 +33,12 @@ namespace gobj
 			return E("");
 		auto fGetObjName = reinterpret_cast<FString * (__fastcall*)(FString * name, uintptr_t entity)>(GNameA);
 		FString result;
-		fGetObjName(&result, (uintptr_t)Object);
+		spoof_call(jmp, fGetObjName, &result, (uintptr_t)Object);
 		if (result.c_str() == NULL)
 			return E("");
 		auto result_str = result.ToString();
 		if (result.c_str() != NULL)
 			Free((__int64)result.c_str());
-		//printf("%s\n", result_str);
 		return result_str;
 	}
 

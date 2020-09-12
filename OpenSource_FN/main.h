@@ -3,13 +3,13 @@
 #include "w2s.h"
 #include "object.h"
 #include <Windows.h>
-
+#include "_spoofer_stub.h"
 
 Vector3 getboneloc(PVOID mesh, int bone)
 {
 	if (!mesh) return { 0,0,0 };
 	auto fGetBoneMatrix = ((FMatrix * (__fastcall*)(PVOID, FMatrix*, int))(BoneMatrixA));
-	fGetBoneMatrix(mesh, myMatrix, bone);
+	spoof_call(jmp, fGetBoneMatrix, mesh, myMatrix, bone);
 	return Vector3(myMatrix->M[3][0], myMatrix->M[3][1], myMatrix->M[3][2]);
 }
 
@@ -54,15 +54,7 @@ void mousemove(float tarx, float tary, float X, float Y, int smooth)
 		}
 	}
 
-	iat(mouse_event)(MOUSEEVENTF_MOVE, static_cast<DWORD>(TargetX), static_cast<DWORD>(TargetY), NULL, NULL);
-}
-
-float normalizeangle(float angle) {
-	float a = (float)iat(fmodf)(iat(fmodf)(angle, 360.0) + 360.0, 360.0);
-	if (a > 180.0f) {
-		a -= 360.0f;
-	}
-	return a;
+	iat(mouse_event)(MOUSEEVENTF_MOVE, static_cast<DWORD>(TargetX), static_cast<DWORD>(TargetY), 0, 0);
 }
 
 bool cheatinit(ImGuiWindow& window, float X, float Y)
@@ -207,7 +199,7 @@ bool cheatinit(ImGuiWindow& window, float X, float Y)
 			{
 				auto x = Head.x - (X / 2);
 				auto y = Head.y - (Y / 2);
-				auto distance = iat(sqrtf)(x * x + y * y);
+				auto distance = spoof_call(jmp, sqrtf, x * x + y * y);
 				if (distance < settings::fov && distance < olddistance)
 				{
 					aimw2s = Head;
@@ -217,18 +209,30 @@ bool cheatinit(ImGuiWindow& window, float X, float Y)
 			}
 		}
 
+
+		//for checking if fortnite window is selected
+		HWND Fnwindow = spoof_call(jmp, FindWindowA, (LPCSTR)E("UnrealWindow"), (LPCSTR)E("Fortnite  "));
+		HWND curwindow = spoof_call(jmp, GetForegroundWindow);
+
 		//Aim
-		if (iat(GetAsyncKeyState)(VK_RBUTTON) && localpawnusable)
+		if(Fnwindow == curwindow)
+		if (discord::GetAsyncKeyState(VK_RBUTTON) && localpawnusable)
 		{
 			if (settings::aimtype == 1)
 			{
 				//moves the mouse to selected location
-				//+5 is because the aim becomes really strong and makes aim really shaky
+				//+5 is because the aim becomes really strong and 
 				mousemove(aimw2s.x, aimw2s.y, X, Y, settings::smooth + 5);
 			}
 			else if (settings::aimtype == 2)
 			{
 				if (aim.x == 0 && aim.y == 0) return false;
+
+				
+					aim.x = (aim.x - CamLoc.x) / (settings::smooth + 1) + CamLoc.x;
+					aim.y = (aim.y - CamLoc.y) / (settings::smooth + 1) + CamLoc.y;
+					aim.z = (aim.z - CamLoc.z) / (settings::smooth + 1) + CamLoc.z;
+				
 
 				Vector3 frotator;
 				Vector3 distfrompawn = aim - CamLoc;
@@ -236,14 +240,14 @@ bool cheatinit(ImGuiWindow& window, float X, float Y)
 				float distance = distfrompawn.Length();
 
 				//converting to pitch
-				frotator.x = -(((float)acos(distfrompawn.z / distance) * (float)(180.0f / M_PI)) - 90.f);
+				frotator.x = -(((float)spoof_call(jmp, acosf, distfrompawn.z / distance) * (float)(180.0f / M_PI)) - 90.f);
 				//converting to yaw
-				frotator.y = (float)atan2(distfrompawn.y, distfrompawn.x) * (float)(180.0f / M_PI);
+				frotator.y = (float)spoof_call(jmp, atan2f, distfrompawn.y, distfrompawn.x) * (float)(180.0f / M_PI);
 	
 				if (frotator.x == 0 && frotator.y == 0) return false;
 
 				//calling clientsetrotation function for changing rotation
-				UEEvent(localcontroller, ClientSetRotation, &frotator, 0);
+				spoof_call(jmp, UEEvent, localcontroller, ClientSetRotation, (PVOID)&frotator, (PVOID)0);
 			}
 		}
 

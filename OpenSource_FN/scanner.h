@@ -2,6 +2,7 @@
 #include "imports.h"
 #include "lazyimporter.h"
 #include "xorstr.h"
+#include "_spoofer_stub.h"
 
 #define fort E("FortniteClient-Win64-Shipping.exe")
 
@@ -12,9 +13,10 @@
     {
         uintptr_t moduleAdress = 0;
         if (strstr(module, fort))
-           moduleAdress = (uintptr_t)GetModuleHandleA(0);
+           moduleAdress = (uintptr_t)spoof_call(jmp, GetModuleHandleA, (const char*)0);
         else
-           moduleAdress = (uintptr_t)GetModuleHandleA(module);       
+           moduleAdress = (uintptr_t)spoof_call(jmp, GetModuleHandleA, module);
+
         static auto patternToByte = [](const char* pattern)
         {
             auto       bytes = std::vector<int>{};

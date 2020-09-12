@@ -1,5 +1,6 @@
 #pragma once
 #include "imports.h"
+#include "_spoofer_stub.h"
 
 namespace discord
 {
@@ -16,7 +17,7 @@ namespace discord
         using CreateHook_t = uint64_t(__fastcall*)(LPVOID, LPVOID, LPVOID*);
         auto fnCreateHook = (CreateHook_t)addrCreateHook;
 
-        return fnCreateHook((void*)originalPresent, (void*)hookFunction, (void**)pOriginal) == 0 ? true : false;
+        return spoof_call(jmp, fnCreateHook, (void*)originalPresent, (void*)hookFunction, (void**)pOriginal) == 0 ? true : false;
     }
 
     bool enhk(uintptr_t pTarget, bool toggle)
@@ -35,7 +36,7 @@ namespace discord
         using EnableHook_t = uint64_t(__fastcall*)(LPVOID, bool);
         auto fnEnableHook = (EnableHook_t)addrEnableHook;
 
-        return fnEnableHook((void*)pTarget, toggle) == 0 ? true : false;
+        return spoof_call(jmp, fnEnableHook, (void*)pTarget, toggle) == 0 ? true : false;
     }
 
     bool enhkq()
@@ -52,7 +53,7 @@ namespace discord
         using EnableHookQueu_t = uint64_t(__stdcall*)(VOID);
         auto fnEnableHookQueu = (EnableHookQueu_t)addrEnableHookQueu;
 
-        return fnEnableHookQueu() == 0 ? true : false;
+        return spoof_call(jmp, fnEnableHookQueu) == 0 ? true : false;
     }
 
     short GetAsyncKeyState(const int vKey)
@@ -69,7 +70,7 @@ namespace discord
         using GetAsyncKeyState_t = short(__fastcall*)(int);
         auto fnGetAyncKeyState = (GetAsyncKeyState_t)addrGetAsyncKeyState;
 
-        return fnGetAyncKeyState(vKey);
+        return spoof_call(jmp, fnGetAyncKeyState, vKey);
     }
 
 

@@ -1,11 +1,12 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "imports.h"
+#include "_spoofer_stub.h"
 
 void fatalerrormessage(std::string msg)
 {
     std::string en = E("Following Signature Could Not Be Found: ") + msg;
     MessageBoxA(0, en.c_str(), E("Fatal Error Occured   |  INTERSTELLAR OPEN SOURCE FREE"), MB_OK | MB_ICONERROR);
-    exit(0);
+    spoof_call(jmp, exit, 0);
 }
 
 void init()
@@ -24,6 +25,7 @@ void init()
 #pragma endregion patterns
 
 
+    jmp = hookjmp(E(L"DiscordHook64.dll"));
 
     hooking::processeventhooking();
 
@@ -56,6 +58,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
+        iat(DisableThreadLibraryCalls)(hModule);
         init();
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
