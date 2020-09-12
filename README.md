@@ -29,10 +29,19 @@
     -Snaplines
   
     -Corner ESP (Planned)
+    
+    
+## How To Use/Compile
+
+[+] Use Visual Studio 2019
+[+] Download DirectX SDK
+[+] Set Build To x64 Release
+[+] Build
+[+] Inject Using any injector of your choice
+[+] Enjoy
  
  
-
-
+ 
 ## Things which are not mine
 
 -Pattern Scanner
