@@ -44,3 +44,5 @@
 -Discord Hook
 
 -Mouse Move Function
+
+-Spoof Call
