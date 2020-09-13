@@ -16,6 +16,8 @@
 
 ## Features
 
+- OBS Hook Comming soon 👀
+
 -Aimbot
 
     -Memory Aimbot
