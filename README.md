@@ -18,6 +18,8 @@
 
 - OBS Hook Comming soon 👀
 
+-Tracking Files Blocker
+
 -Aimbot
 
     -Memory Aimbot
