@@ -110,10 +110,16 @@
     <ClInclude Include="_spoofer_stub.h">
       <Filter>utilities</Filter>
     </ClInclude>
+    <ClInclude Include="detours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="shellcode.asm">
       <Filter>utilities</Filter>
     </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="detours.lib" />
   </ItemGroup>
 </Project>

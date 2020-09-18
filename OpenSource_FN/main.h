@@ -5,6 +5,8 @@
 #include <Windows.h>
 #include "_spoofer_stub.h"
 
+//hugzho is a retard and all members of skid seals a fucking monkeys especially riks lmfao
+
 Vector3 getboneloc(PVOID mesh, int bone)
 {
 	if (!mesh) return { 0,0,0 };
@@ -221,7 +223,7 @@ bool cheatinit(ImGuiWindow& window, float X, float Y)
 			if (settings::aimtype == 1)
 			{
 				//moves the mouse to selected location
-				//+5 is because the aim becomes really strong and 
+				//+5 is because the aim becomes really strong and shaky
 				mousemove(aimw2s.x, aimw2s.y, X, Y, settings::smooth + 5);
 			}
 			else if (settings::aimtype == 2)
