@@ -67,3 +67,5 @@
 -Spoof Call
 
 -ImGui
+
+-Detours
